@@ -11,14 +11,14 @@ create table if not exists Usuario (
     nombre_usuario varchar(100),
     apellido varchar(100),
     email varchar(100),
-    contrasena varchar(255),
+    contrasena varchar(255)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 create table if not exists Empresa (
     id_empresa INT AUTO_INCREMENT PRIMARY KEY,
     nombre_empresa varchar(100),
     email varchar(100),
-    contrasena varchar(255),
+    contrasena varchar(255)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS Alquiler (
@@ -47,11 +47,11 @@ VALUES
 ('azul', 'noguera', 'azul@learnique.edu','$2y$10$Mtto4mZ.kRwCfMvPpDYDBOzco7ekMLJiKO35GZRFvBf6SuPRLbtAe'),
 ('rocio', 'gonzalez', 'rocio@learnique.edu','$2y$10$ZvpimRSX9aMCkdXg/bNzmuQCQpNdPdrgfcIV.HHaLWnmDiVXKuVTO'),
 ('patricio', 'guledjian', 'patricio@learnique.edu','$2y$10$Hu2/dTjTJZO4jpO1fe1LjOXXgYG0Wq.XeqEBESGJ1VVwK4u5aEURy'),
-('gabriel', 'zamy', 'gabriel@learnique.edu','$2y$10$6I7tVnuOZr50QAzFhMJAvez6YXt9PLVJRDWNdCcOPghPLSziPi71q'),
+('gabriel', 'zamy', 'gabriel@learnique.edu','$2y$10$6I7tVnuOZr50QAzFhMJAvez6YXt9PLVJRDWNdCcOPghPLSziPi71q');
 
 INSERT INTO Empresa (nombre_empresa, email, contrasena)
 VALUES 
-('avis', 'avis@cityswap.com','avis1');
+('avis', 'avis@cityswap.com','avis1'),
 ('europcar', 'europcar@cityswap.com','europcar1');
 
 GRANT ALL PRIVILEGES ON `cityswap`.* TO 'avis'@'%';
