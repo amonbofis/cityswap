@@ -70,7 +70,7 @@ class Usuario {
         return $usuario;
     }
    
-    public static function borraUsuario(usuario) {
+    public static function borraUsuario($usuario) {
         if ($usuario->id !== null) {
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Usuario WHERE id = %d", $usuario->id);

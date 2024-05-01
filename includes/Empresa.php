@@ -10,8 +10,8 @@ class Empresa {
         }
         return false;
     }
-    public static function creaEmpresa( $nombre_empresa, $apellido, $email, $contrasena) {
-        $user = new Empresa($nombre_empresa, $apellido, $email, self::hashPassword($contrasena));
+    public static function creaEmpresa( $nombre_empresa, $email, $contrasena) {
+        $user = new Empresa($nombre_empresa, $email, self::hashPassword($contrasena));
         return $user->guarda();
     }
     public static function buscaEmpresa($nombre_empresa) {
@@ -23,7 +23,7 @@ class Empresa {
         
         if ($rs && $rs->num_rows > 0) {
             $fila = $rs->fetch_assoc();
-            $result = new Empresa($fila['nombre_empresa'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+            $result = new Empresa($fila['nombre_empresa'], $fila['email'], $fila['contrasena']);
             $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -38,9 +38,8 @@ class Empresa {
 
     public static function insertaEmpresa($empresa) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO EMPRESA (nombre_empresa, apellido, email, contrasena) VALUES ('%s', '%s', '%s', '%s')",
+        $query = sprintf("INSERT INTO EMPRESA (nombre_empresa, email, contrasena) VALUES ('%s', '%s', '%s', '%s')",
             $conn->real_escape_string($empresa->nombre_empresa),
-            $conn->real_escape_string($empresa->apellido),
             $conn->real_escape_string($empresa->email),
             $conn->real_escape_string($empresa->contrasena)
         );
@@ -56,9 +55,8 @@ class Empresa {
     
     public static function actualizaEmpresa($empresa) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE EMPRESA E SET nombre_empresa = '%s', apellido = '%s', email='%s', password='%s' WHERE E.id=%d"
+        $query=sprintf("UPDATE EMPRESA E SET nombre_empresa = '%s',  email='%s', password='%s' WHERE E.id=%d"
             , $conn->real_escape_string($empresa->nombre_empresa)
-            , $conn->real_escape_string($empresa->apellido)
             , $conn->real_escape_string($empresa->email)
             , $conn->real_escape_string($empresa->password)
             , $empresa->id
@@ -70,7 +68,7 @@ class Empresa {
         return $empresa;
     }
    
-    public static function borraEmpresa(empresa) {
+    public static function borraEmpresa($empresa) {
         if ($empresa->id !== null) {
             $conn = Aplicacion::getInstance()->getConexionBd();
             $query = sprintf("DELETE FROM Empresa WHERE id = %d", $empresa->id);
@@ -86,13 +84,11 @@ class Empresa {
 
     private $id;
     private $nombre_empresa;
-    private $apellido;
     private $email;
     private $contrasena;
-    public function __construct($nombre_empresa, $apellido, $email, $contrasena, $id = null) {
+    public function __construct($nombre_empresa, $email, $contrasena, $id = null) {
         $this->id = $id;
         $this->nombre_empresa = $nombre_empresa;
-        $this->apellido = $apellido;
         $this->email = $email;
         $this->contrasena = $contrasena;
     }
@@ -111,9 +107,7 @@ class Empresa {
     public function getNombreEmpresa() {
         return $this->nombre_empresa;
     }
-    public function getApellido() {
-        return $this->apellido;
-    }
+    
     public function getEmail() {
         return $this->email;
     }

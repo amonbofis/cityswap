@@ -19,12 +19,12 @@ class FormularioLogin extends Formulario {
         $htmlErroresGlobales
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required value="$nombre_usuario">
+                <input type="text" id="nombre_usuario" name="nombre_usuario" required value="$nombre_usuario">
                 {$erroresCampos['nombre_usuario']}
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required >
+                <input type="password" id="contrasena" name="contrasena" required >
                 {$erroresCampos['contrasena']}
             </div>
             <div class="form-group">

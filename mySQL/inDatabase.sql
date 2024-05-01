@@ -54,8 +54,8 @@ VALUES
 ('avis', 'avis@cityswap.com','avis1'),
 ('europcar', 'europcar@cityswap.com','europcar1');
 
-GRANT ALL PRIVILEGES ON `cityswap`.* TO 'avis'@'%';
-GRANT ALL PRIVILEGES ON `cityswap`.* TO 'europcar'@'%';
+-- GRANT ALL PRIVILEGES ON `cityswap`.* TO 'avis'@'%'; porque hacer eso?
+-- GRANT ALL PRIVILEGES ON `cityswap`.* TO 'europcar'@'%';
 
 INSERT INTO Alquiler (id_empresa, ciudad_origen, ciudad_destino, fecha_inicio, fecha_final) 
 VALUES 
