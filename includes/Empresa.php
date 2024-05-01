@@ -55,7 +55,7 @@ class Empresa {
     
     public static function actualizaEmpresa($empresa) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE EMPRESA E SET nombre_empresa = '%s',  email='%s', password='%s' WHERE E.id=%d"
+        $query=sprintf("UPDATE EMPRESA E SET nombre_empresa = '%s',  email='%s', password='%s' WHERE E.id_empresa=%d"
             , $conn->real_escape_string($empresa->nombre_empresa)
             , $conn->real_escape_string($empresa->email)
             , $conn->real_escape_string($empresa->password)
@@ -71,7 +71,7 @@ class Empresa {
     public static function borraEmpresa($empresa) {
         if ($empresa->id !== null) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM Empresa WHERE id = %d", $empresa->id);
+            $query = sprintf("DELETE FROM Empresa WHERE id_empresa = %d", $empresa->id);
             if ( ! $conn->query($query) ) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
                 return false;

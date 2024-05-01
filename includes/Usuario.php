@@ -56,7 +56,7 @@ class Usuario {
     
     public static function actualizaUsuario($usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Usuario U SET nombre_usuario = '%s', apellido = '%s', email='%s', password='%s' WHERE U.id=%d"
+        $query=sprintf("UPDATE Usuario U SET nombre_usuario = '%s', apellido = '%s', email='%s', password='%s' WHERE U.id_usuario=%d"
             , $conn->real_escape_string($usuario->nombre_usuario)
             , $conn->real_escape_string($usuario->apellido)
             , $conn->real_escape_string($usuario->email)
@@ -73,7 +73,7 @@ class Usuario {
     public static function borraUsuario($usuario) {
         if ($usuario->id !== null) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM Usuario WHERE id = %d", $usuario->id);
+            $query = sprintf("DELETE FROM Usuario WHERE id_usuario = %d", $usuario->id);
             if ( ! $conn->query($query) ) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
                 return false;
