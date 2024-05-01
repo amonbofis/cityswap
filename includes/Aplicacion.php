@@ -1,5 +1,5 @@
 <?php
-
+namespace es\ucm\fdi\aw;
 /**
  * Clase que mantiene el estado global de la aplicación.
  */
@@ -71,7 +71,6 @@ class Aplicacion {
 			}
 			$this->conn = $conn;
 		}
-		echo "bien inizialado";
 		return $this->conn;
 	}
 }

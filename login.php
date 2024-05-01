@@ -1,46 +1,43 @@
 <?php
+require_once __DIR__.'/includes/config.php';
 
-//Inicio del procesamiento
-//session_start();
+$form = new es\ucm\fdi\aw\FormularioLogin();
+$htmlFormLogin = $form->gestiona();
+$tituloPagina = 'Login';
+$contenidoPrincipal = <<<EOS
+$htmlFormLogin
+EOS;
+
+require __DIR__.'/includes/vistas/plantilla.php';
 
 ?>
-
-<!DOCTYPE html>
-<html>
+<!-- <!DOCTYPE html>
+<html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Portada</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css"> 
 </head>
-
 <body>
-
-<div id="contenedor">
-
-<?php
-	require_once __DIR__.'/includes/vistas/comun/cabecera.php';
-	require_once __DIR__.'/includes/vistas/comun/sidebarIzq.php';
-?>
-
-<main>
-	<article>
-		<h1>Acceso al sistema</h1>
-
-		<form action="procesarLogin.php" method="POST">
-		<fieldset>
-			<legend>Usuario y contraseña</legend>
-			<div><label>Nombre:</label> <input type="text" name="username" /></div>
-			<div><label>Contraseña:</label> <input type="password" name="password" /></div>
-			<button type="submit">Enviar</button>
-		</fieldset>
-	</article>
-</main>
-
-<?php
-	require_once __DIR__.'/includes/vistas/comun/sidebarDer.php';
-	require_once __DIR__.'/includes/vistas/comun/pie.php';
-?>
-</div>
-
+    <?php //require_once __DIR__. "/includes/vistas/topbar.php" ;?>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="process_login.php" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn">Login</button>
+            </div>
+        </form>
+    </div>
+    
+    <?php //require_once __DIR__. "/includes/vistas/footer.php" ;?>
 </body>
-</html>
+</html> -->

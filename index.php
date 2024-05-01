@@ -1,40 +1,22 @@
-<?php
-  // Inicio de sesion
-  //session_start();
-  require_once __DIR__.'/includes/config.php';
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Portada</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CitySwap</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <?php require_once __DIR__. "/includes/vistas/topbar.php" ;?>
 
- <div id="contenedor">
- <?php
-    //Sustituimos header y sidebarIzq por cod PHP
-    require_once __DIR__.'/includes/vistas/comun/cabecera.php';
-    require_once __DIR__.'/includes/vistas/comun/sidebarIzq.php';
-?>
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Find the Perfect Car for Your Journey</h2>
+            <p>Explore our wide range of vehicles and book your rental today!</p>
+            <a href="#" class="btn">Get Started</a>
+        </div>
+    </section>
 
-	<main>
-	  <article>
-			<h1>Bienvenido en CitySwap</h1>
-			<p> Viajas entre las mas graciosas ciudades para 2$.</p>
-		</article>
-	</main>
-	
-<?php
-   //Sustituimos sidebarDer y footer por cod PHP
-   require_once __DIR__.'/includes/vistas/comun/sidebarDer.php';
-   require_once __DIR__.'/includes/vistas/comun/pie.php';
-?>
-
-</div> <!-- Fin del contenedor -->
-
+    <?php require_once __DIR__. "/includes/vistas/footer.php" ;?>
 </body>
 </html>
