@@ -1,6 +1,6 @@
 <?php
 // Verificar si hay una sesión activa
-session_start();
+//session_start();
 
 // Obtener el nombre del usuario si está iniciada la sesión
 $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : null;
@@ -16,7 +16,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : null;
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#">Acerca de</a></li>
                     <li><a href="#">Servicios</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="logout.php">logout</a></li>
                 </ul>
             </nav>
             <!-- Saludo personalizado -->
