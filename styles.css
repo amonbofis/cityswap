@@ -34,7 +34,7 @@ nav ul li a {
 }
 
 .hero {
-    background-image: url('https://via.placeholder.com/1500x600');
+    background-color: grey;
     background-size: cover;
     background-position: center;
     color: #fff;
@@ -128,4 +128,8 @@ footer {
 
 .btn-login:hover {
     background-color: #45a049;
+}
+
+.usuario-info {
+    margin-right: 20px; /* Espacio entre el saludo y el borde de la pantalla */
 }
