@@ -34,7 +34,7 @@ nav ul li a {
 }
 
 .hero {
-    background-color: grey;
+    background-color: rgb(207, 203, 203);
     background-size: cover;
     background-position: center;
     color: #fff;
@@ -130,6 +130,3 @@ footer {
     background-color: #45a049;
 }
 
-.usuario-info {
-    margin-right: 20px; /* Espacio entre el saludo y el borde de la pantalla */
-}
