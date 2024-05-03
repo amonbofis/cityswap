@@ -118,9 +118,9 @@ class Usuario {
 
     public function guarda() {
         if ($this->id !== null) {
-            return static::actualiza($this);
+            return self::actualizaUsuario($this);
         }
-        return static::inserta($this);
+        return self::insertaUsuario($this);
     }
 
     public function getId() {

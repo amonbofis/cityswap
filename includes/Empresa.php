@@ -97,9 +97,9 @@ class Empresa {
     }
     public function guarda() {
         if ($this->id !== null) {
-            return static::actualiza($this);
+            return self::actualizaEmpresa($this);
         }
-        return static::inserta($this);
+        return self::insertaImpresa($this);
     }
     public function getId() {
         return $this->id;
@@ -110,5 +110,12 @@ class Empresa {
     
     public function getEmail() {
         return $this->email;
+    }
+
+    public static function getEmpresa($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Empresa WHERE id_empresa = %d", $id);
+        $res = $conn->query($query);
+        return $res;
     }
 }

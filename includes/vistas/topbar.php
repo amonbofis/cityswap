@@ -3,18 +3,20 @@
 //session_start();
 
 // Obtener el nombre del usuario si está iniciada la sesión
-$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : null;
 ?>
 
 <header>
-    <?php if ($nombreUsuario): ?>
+    <?php 
+    $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : null;
+
+    if ($nombreUsuario): ?>
         <!-- Si el usuario está iniciado sesión, mostrar el topbar para usuarios logueados -->
         <div class="topbar-logged-in">
             <h1>Logo</h1>
             <nav>
                 <ul>
                     <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="viajes.php">Viajes</a></li>
                     <li><a href="#">Servicios</a></li>
                     <li><a href="logout.php">logout</a></li>
                 </ul>
@@ -31,7 +33,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : null;
             <nav>
                 <ul>
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Cars</a></li>
+                    <li><a href="#">Viajes</a></li>
                     <li><a href="login.php">Login</a></li>
                     <li><a href="registro.php">Register</a></li>
                 </ul>
