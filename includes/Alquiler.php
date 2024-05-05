@@ -38,7 +38,7 @@ class Alquiler {
                                                 ciudad_destino, 
                                                 fecha_inicio,
                                                 fecha_final) 
-            VALUES ('%s', '%s', '%s', '%s')",
+            VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
             $conn->real_escape_string($alquiler->getId_empresa()),
             $conn->real_escape_string($alquiler->getId_usuario()),
             $conn->real_escape_string($alquiler->getCiudad_origen()),
@@ -92,6 +92,31 @@ class Alquiler {
             $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+        return $result;
+    }
+
+    static public function alquilersRes($id_usuario) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Alquiler WHERE id_usuario = %d", $id_usuario);
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $result = [];
+            while ($row = $rs->fetch_assoc()) {
+                $alquiler = new Alquiler(
+                    $row['id_empresa'],
+                    $row['ciudad_origen'],
+                    $row['ciudad_destino'],
+                    $row['fecha_inicio'],
+                    $row['fecha_final']);
+                $result[] = $alquiler;
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
         }
         return $result;
     }

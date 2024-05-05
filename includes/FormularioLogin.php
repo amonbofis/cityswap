@@ -59,13 +59,15 @@ class FormularioLogin extends Formulario {
                     $_SESSION['login'] = true;
                     $_SESSION['nombre'] = $nombre_usuario;
                     $_SESSION['email'] = $usuario->getEmail();
-                    //$_SESSION['empresa'] = true; //hacemos esto?
+                    $_SESSION['id'] = $usuario->getId();
+                    $_SESSION['empresa'] = true; 
                 }
             } else {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombre_usuario;
                 $_SESSION['apellido'] = $usuario->getApellido();
                 $_SESSION['email'] = $usuario->getEmail();
+                $_SESSION['id'] = $usuario->getId();
             }
         }
     }
