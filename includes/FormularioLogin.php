@@ -52,14 +52,14 @@ class FormularioLogin extends Formulario {
         if (count($this->errores) === 0) {
             $usuario = Usuario::login($nombre_usuario,$contrasena);
             if (!$usuario) {
-                $usuario = Empresa::login($nombre_usuario,$contrasena);
-                if (!$usuario) {
+                $empresa = Empresa::login($nombre_usuario,$contrasena);
+                if (!$empresa) {
                     $this->errores[] = "El usuario o el password no coinciden";
                 }else{
                     $_SESSION['login'] = true;
                     $_SESSION['nombre'] = $nombre_usuario;
-                    $_SESSION['email'] = $usuario->getEmail();
-                    $_SESSION['id'] = $usuario->getId();
+                    $_SESSION['email'] = $empresa->getEmail();
+                    $_SESSION['id'] = $empresa->getId();
                     $_SESSION['empresa'] = true; 
                 }
             } else {

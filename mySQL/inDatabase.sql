@@ -51,8 +51,8 @@ VALUES
 
 INSERT INTO Empresa (nombre_empresa, email, contrasena)
 VALUES 
-('avis', 'avis@cityswap.com','avis1'),
-('europcar', 'europcar@cityswap.com','europcar1');
+('avis', 'avis@cityswap.com','$2y$10$vIGQEg9O1bG9VvfT.bCeOetlwLAywuo2R6..eQe78UlDdD0/Y1CqW'),
+('europcar', 'europcar@cityswap.com','$2y$10$yiPsZuY2ZpKnFtQ1Zox47.Pp5peTxXGwoW4dWDfy7z//4K2xKFjwm');
 
 -- GRANT ALL PRIVILEGES ON `cityswap`.* TO 'avis'@'%'; porque hacer eso?
 -- GRANT ALL PRIVILEGES ON `cityswap`.* TO 'europcar'@'%';
