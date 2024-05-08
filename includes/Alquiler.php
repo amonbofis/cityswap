@@ -33,14 +33,12 @@ class Alquiler {
     public static function insertaAlquiler($alquiler) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO ALQUILER (id_empresa,
-                                                id_usuario, 
                                                 ciudad_origen, 
                                                 ciudad_destino, 
                                                 fecha_inicio,
                                                 fecha_final) 
-            VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+            VALUES ('%s', '%s', '%s', '%s', '%s')",
             $conn->real_escape_string($alquiler->getId_empresa()),
-            $conn->real_escape_string($alquiler->getId_usuario()),
             $conn->real_escape_string($alquiler->getCiudad_origen()),
             $conn->real_escape_string($alquiler->getCiudad_destino()),
             $conn->real_escape_string($alquiler->getFecha_inicio()),
