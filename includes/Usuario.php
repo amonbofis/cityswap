@@ -28,7 +28,7 @@ class Usuario {
         
         if ($rs && $rs->num_rows > 0) {
             $fila = $rs->fetch_assoc();
-            $result = new Usuario($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
+            $result = new Usuario($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id_usuario']);
             $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");

@@ -21,16 +21,22 @@ create table if not exists Empresa (
     contrasena varchar(255)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS Alquiler (
-    id_alquiler INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT,
+CREATE TABLE IF NOT EXISTS Viaje (
+    id_viaje INT AUTO_INCREMENT PRIMARY KEY,
     id_empresa INT,
     ciudad_origen VARCHAR(100),
     ciudad_destino VARCHAR(100),
     fecha_inicio DATE NOT NULL,
     fecha_final DATE NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_empresa) REFERENCES Empresa(id_empresa)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+create TABLE IF NOT EXISTS Alquiler (
+    id_alquiler INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_viaje INT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_viaje) REFERENCES Viaje(id_viaje)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 create table if not exists Facturacion (
@@ -57,11 +63,17 @@ VALUES
 -- GRANT ALL PRIVILEGES ON `cityswap`.* TO 'avis'@'%'; porque hacer eso?
 -- GRANT ALL PRIVILEGES ON `cityswap`.* TO 'europcar'@'%';
 
-INSERT INTO Alquiler (id_empresa, ciudad_origen, ciudad_destino, fecha_inicio, fecha_final) 
+INSERT INTO Viaje (id_empresa, ciudad_origen, ciudad_destino, fecha_inicio, fecha_final) 
 VALUES 
 (1, 'Ciudad A', 'Ciudad B', '2024-05-01', '2024-05-05'),
 (2, 'Ciudad C', 'Ciudad D', '2024-05-03', '2024-05-08'),
 (1, 'Ciudad E', 'Ciudad F', '2024-05-07', '2024-05-10');
+
+INSERT INTO Alquiler (id_usuario, id_viaje)
+VALUES 
+(1, 1),
+(2, 2),
+(3, 3);
 
 INSERT INTO Facturacion (id_alquiler, monto, fecha) 
 VALUES 

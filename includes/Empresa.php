@@ -23,7 +23,7 @@ class Empresa {
         
         if ($rs && $rs->num_rows > 0) {
             $fila = $rs->fetch_assoc();
-            $result = new Empresa($fila['nombre_empresa'], $fila['email'], $fila['contrasena']);
+            $result = new Empresa($fila['nombre_empresa'], $fila['email'], $fila['contrasena'], $fila['id_empresa']);
             $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");

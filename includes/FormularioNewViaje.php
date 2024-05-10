@@ -6,19 +6,21 @@ class FormularioNewViaje extends Formulario {
     public function __construct() {
         parent::__construct('formNewViaje', ['urlRedireccion' => 'index.php']);
     }
+    
     protected function generaCamposFormulario(&$datos) {
-        // Se reutiliza el nombre de usuario introducido previamente o se deja en blanco
+        // Reutiliza los valores introducidos previamente o deja los campos en blanco
         $ciudad_origen = $datos['ciudad_origen'] ?? '';
         $ciudad_destino = $datos['ciudad_destino'] ?? '';
         $fecha_inicio = $datos['fecha_inicio'] ?? '';
         $fecha_final = $datos['fecha_final'] ?? '';
-        // Se generan los mensajes de error si existen.
+
+        // Genera mensajes de error si existen
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['ciudad_origen', 'ciudad_destino', 'fecha_inicio', 'fecha_final'], $this->errores, 'span', array('class' => 'error'));
 
-        // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
+        // Genera el HTML de los campos del formulario y los mensajes de error
         $html = <<<EOF
-        <h2>Log In</h2>
+        <h2>Añadir Viaje</h2>
         $htmlErroresGlobales
             <div class="form-group">
                 <label for="ciudad_origen">Ciudad de origen:</label>
@@ -40,9 +42,8 @@ class FormularioNewViaje extends Formulario {
                 <input type="date" id="fecha_final" name="fecha_final" required value="$fecha_final">
                 {$erroresCampos['fecha_final']}
             </div>
-
             <div class="form-group">
-                <button type="submit" class="btn">Crear este alquiler</button>
+                <button type="submit" class="btn">Añadir Viaje</button>
             </div>
         EOF;
         return $html;
@@ -51,34 +52,46 @@ class FormularioNewViaje extends Formulario {
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
 
+        // Obtén los datos del formulario
         $ciudad_origen = trim($datos['ciudad_origen'] ?? '');
-        $ciudad_origen = filter_var($ciudad_origen, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $ciudad_origen || empty($ciudad_origen) ) {
-            $this->errores['ciudad_origen'] = 'El nombre de usuario no puede estar vacío';
-        }
-
         $ciudad_destino = trim($datos['ciudad_destino'] ?? '');
-        $ciudad_destino = filter_var($ciudad_destino, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $ciudad_destino || empty($ciudad_destino) ) {
-            $this->errores['ciudad_destino'] = 'La contrasena no puede estar vacío.';
-        }
-
-        $fecha_inicio = $datos['fecha_inicio'];
-        $fecha_final = $datos['fecha_final'];
+        $fecha_inicio = $datos['fecha_inicio'] ?? '';
+        $fecha_final = $datos['fecha_final'] ?? '';
         $currentDate = date('Y-m-d');
-        //doesn't work because says $id_empresa is null. how to recover the id from the session?
-        $id_empresa = $_SESSION['id'];
+        // Suponiendo que el ID de la empresa está almacenado en la sesión
+        $empresaActual = Empresa::buscaEmpresa($_SESSION['nombre']);
+        var_dump($empresaActual);
+        $id_empresa = $empresaActual->getId();
+        var_dump($id_empresa);
 
-        if ($fecha_inicio < $currentDate) {
-            $this->errores['fecha_inicio'] = 'La fecha de inicio debe estar mas tarde que hoy.';
-        }
-    
-        if ($fecha_final <= $fecha_inicio) {
-            $this->errores['fecha_final'] = 'La fecha de fin debe estar mas tarde que la fecha de inicio.';
+        // Validar los datos
+        if (empty($ciudad_origen)) {
+            $this->errores['ciudad_origen'] = 'El campo Ciudad de origen es obligatorio.';
         }
 
-        if (count($this->errores) === 0) {
-            $alquiler = Alquiler::creaAlquiler($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final);
+        if (empty($ciudad_destino)) {
+            $this->errores['ciudad_destino'] = 'El campo Ciudad de destino es obligatorio.';
+        }
+
+        if (empty($fecha_inicio)) {
+            $this->errores['fecha_inicio'] = 'El campo Fecha de inicio es obligatorio.';
+        } elseif ($fecha_inicio < $currentDate) {
+            $this->errores['fecha_inicio'] = 'La fecha de inicio debe ser posterior a la fecha actual.';
+        }
+
+        if (empty($fecha_final)) {
+            $this->errores['fecha_final'] = 'El campo Fecha de fin es obligatorio.';
+        } elseif ($fecha_final <= $fecha_inicio) {
+            $this->errores['fecha_final'] = 'La fecha de fin debe ser posterior a la fecha de inicio.';
+        }
+
+        // Si no hay errores, añade el viaje a la base de datos
+        if (empty($this->errores)) {
+            $viaje = Viaje::creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final);
+            if (!$viaje) {
+                $this->errores[] = 'Error al añadir el viaje.';
+            }
         }
     }
 }
+?>

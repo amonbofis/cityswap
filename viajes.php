@@ -3,36 +3,37 @@ require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Viajes';
 $contenidoPrincipal = '';
-//función para generar la visualización de alquilers
-function toBox($id, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final) {
-    $empr = es\ucm\fdi\aw\Empresa::getEmpresa($id);
+//función para generar la visualización de viajes
+function toBox($id_viaje, $id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final) {
+    $empr = es\ucm\fdi\aw\Empresa::getEmpresa($id_empresa);
     $emp = $empr->fetch_assoc();
     $empresa = $emp['nombre_empresa'];
     $contenido = "<div class='box-viaje'>";
     $contenido .= "<h2 class='trayecto'>$ciudad_origen => $ciudad_destino</h2>";
     $contenido .= "<div class='fecha'>From : $fecha_inicio <br> to : $fecha_final</div>";
     $contenido .= "<p class='empresa'>$empresa</p>";
-    $contenido .= "<a href='index.php' class='button-viaje'>Ver alquiler</a>";
+    $contenido .= "<a href='reserva.php?id_viaje={$id_viaje}' class='button-viaje'>Reservar</a>";
     $contenido .= "</div>";
     return $contenido;
 }
 
 $contenidoPrincipal = "<div id='contenedor-viajes'>";
 
-$alquilers = es\ucm\fdi\aw\Alquiler::obtenerAlquilers();
-if ($alquilers) {
-    foreach($alquilers as $alquiler) {
-        $contenidoPrincipal .= toBox($alquiler->getId_empresa(), 
-                                    $alquiler->getCiudad_origen(), 
-                                    $alquiler->getCiudad_destino(),
-                                    $alquiler->getFecha_inicio(),
-                                    $alquiler->getFecha_final());
+$viajes = es\ucm\fdi\aw\Viaje::obtenerViajes();
+if ($viajes) {
+    foreach($viajes as $viaje) {
+        $contenidoPrincipal .= toBox($viaje->getId(),
+                                    $viaje->getId_empresa(), 
+                                    $viaje->getCiudad_origen(), 
+                                    $viaje->getCiudad_destino(),
+                                    $viaje->getFecha_inicio(),
+                                    $viaje->getFecha_final());
     }
 } else {
-    $contenidoPrincipal .= '<p>No hay alquilers disponibles en este momento.</p>';
+    $contenidoPrincipal .= '<p>No hay viajes disponibles en este momento.</p>';
 }
 
-// Finaliza el contenedor de alquilers
+// Finaliza el contenedor de viajes
 $contenidoPrincipal .= '</div>';
 require __DIR__.'/includes/vistas/plantilla.php';
 ?>
