@@ -8,11 +8,12 @@ function toBox($id_viaje, $id_empresa, $ciudad_origen, $ciudad_destino, $fecha_i
     $empr = es\ucm\fdi\aw\Empresa::getEmpresa($id_empresa);
     $emp = $empr->fetch_assoc();
     $empresa = $emp['nombre_empresa'];
+    //print("before the link, id viaje egale a : "+ $id_empresa);
     $contenido = "<div class='box-viaje'>";
     $contenido .= "<h2 class='trayecto'>$ciudad_origen => $ciudad_destino</h2>";
     $contenido .= "<div class='fecha'>From : $fecha_inicio <br> to : $fecha_final</div>";
     $contenido .= "<p class='empresa'>$empresa</p>";
-    $contenido .= "<a href='reserva.php?id_viaje={$id_viaje}' class='button-viaje'>Reservar</a>";
+    $contenido .= "<a href='reserva.php?id_viaje=$id_viaje' class='button-viaje'>Reservar</a>";
     $contenido .= "</div>";
     return $contenido;
 }
@@ -20,8 +21,9 @@ function toBox($id_viaje, $id_empresa, $ciudad_origen, $ciudad_destino, $fecha_i
 $contenidoPrincipal = "<div id='contenedor-viajes'>";
 
 $viajes = es\ucm\fdi\aw\Viaje::obtenerViajes();
+
 if ($viajes) {
-    foreach($viajes as $viaje) {
+    foreach($viajes as $viaje) {      
         $contenidoPrincipal .= toBox($viaje->getId(),
                                     $viaje->getId_empresa(), 
                                     $viaje->getCiudad_origen(), 

@@ -20,11 +20,11 @@ function toBox($id, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final
 
 $contenidoPrincipal = "<div id='contenedor-viajes'>";
 $id_usuario = $_SESSION['id'];
-$viajes = es\ucm\fdi\aw\Viaje::viajesRes($id_usuario);
+$viajes = es\ucm\fdi\aw\Alquiler::misAlquileres($id_usuario);
 if ($viajes) {
     foreach($viajes as $viaje) {
         $id_alq = $viaje->getId();
-        $facturacione = es\ucm\fdi\aw\Facturation::factPorAlq($id_alq);
+        //$facturacione = es\ucm\fdi\aw\Facturacion::factPorAlq($id_alq);
         $contenidoPrincipal .= toBox($viaje->getId_empresa(), 
                                     $viaje->getCiudad_origen(), 
                                     $viaje->getCiudad_destino(),
@@ -32,7 +32,7 @@ if ($viajes) {
                                     $viaje->getFecha_final());
     }
 } else {
-    $contenidoPrincipal .= '<p>No tienes viajees reservado en este momento.</p>';
+    $contenidoPrincipal .= '<p>No tienes viajes reservado en este momento.</p>';
 }
 
 // Finaliza el contenedor de viajes

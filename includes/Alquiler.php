@@ -29,7 +29,7 @@ class Alquiler {
     private static function inserta($alquiler){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Alquiler(id_usuario, id_viaje) VALUES ('%s', '%s')",
+        $query = sprintf("INSERT INTO Alquiler(id_usuario, id_viaje) VALUES ('%d', '%d')",
             $conn->real_escape_string($alquiler->id_usuario),
             $conn->real_escape_string($alquiler->id_viaje)
         );
@@ -38,6 +38,35 @@ class Alquiler {
             $result = true;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    static public function misAlquileres($id_usuario) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT a.id_viaje FROM ALquiler a WHERE a.id_usuario = %d", $id_usuario);
+        $tmp = $conn->query($query);
+        
+        $result = false;
+        if ($tmp) {
+            $result = [];
+            while ($row1 = $tmp->fetch_assoc()) {
+                $queryViaje = sprintf("SELECT * FROM VIAJE WHERE id_viaje = %d", $row1['id_viaje']);
+                $res = $conn->query($queryViaje);
+                $row = $res->fetch_assoc();
+                $viaje = new Viaje(
+                    $row['id_empresa'],
+                    $row['ciudad_origen'],
+                    $row['ciudad_destino'],
+                    $row['fecha_inicio'],
+                    $row['fecha_final']);
+                $viaje->setId($row['id_viaje']);
+                $result[] = $viaje;
+            }
+            $tmp->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
         }
         return $result;
     }

@@ -18,7 +18,6 @@ class FormularioReserva extends Formulario {
         }
 
         $id_viaje = $this->id_viaje;
-        var_dump($id_viaje);
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
 
@@ -47,21 +46,20 @@ class FormularioReserva extends Formulario {
         $this->errores = [];
         $nombre_usuario = trim($datos['nombre_usuario'] ?? '');
         $id_viaje = $datos['id_viaje'] ?? '';
-        var_dump($nombre_usuario);
-        var_dump($id_viaje);
+        
         // Verificar existencia de usuario y viaje
         $usuario = Usuario::buscaUsuario($nombre_usuario);
         if (!$usuario) {
             $this->errores['nombre_usuario'] = "Usuario no existente";
+            print("error name user");
         }
-        var_dump($usuario->getId());
-
+        
         $viaje = Viaje::buscaViajePorId($id_viaje);
         if (!$viaje) {
             $this->errores['id_viaje'] = "Viaje no existente";
+            print("\terror id viaje");
         }
-        var_dump($viaje->getId());
-
+        
         // Si no hay errores, crear la reserva
         if (empty($this->errores)) {
             $reserva = Alquiler::crea($usuario->getId(), $viaje->getId());

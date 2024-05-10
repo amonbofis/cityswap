@@ -29,6 +29,7 @@ class Viaje {
     }
 
     public static function insertaViaje($viaje) {
+        print("inserta called");
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO Viaje (id_empresa,
                                                 ciudad_origen, 
@@ -43,9 +44,9 @@ class Viaje {
             $conn->real_escape_string($viaje->getFecha_final())
 
         );
-
         if ($conn->query($query)) {
             $viaje->setId($conn->insert_id);
+            
             return $viaje;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -83,6 +84,7 @@ class Viaje {
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
                     $row['fecha_final']);
+                $viaje->setId($row['id_viaje']);
                 $result[] = $viaje;
             }
             $rs->free();
