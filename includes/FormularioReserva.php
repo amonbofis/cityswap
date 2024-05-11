@@ -51,20 +51,25 @@ class FormularioReserva extends Formulario {
         $usuario = Usuario::buscaUsuario($nombre_usuario);
         if (!$usuario) {
             $this->errores['nombre_usuario'] = "Usuario no existente";
-            print("error name user");
         }
         
         $viaje = Viaje::buscaViajePorId($id_viaje);
         if (!$viaje) {
             $this->errores['id_viaje'] = "Viaje no existente";
-            print("\terror id viaje");
         }
         
         // Si no hay errores, crear la reserva
         if (empty($this->errores)) {
             $reserva = Alquiler::crea($usuario->getId(), $viaje->getId());
+            
             if ($reserva) {
-                return 'index.php';
+                $viaje->setFree(false);
+                $fact = Facturacion::creaFacturacion($reserva->getId_alquiler(), 100);
+                if($fact){
+                    return 'index.php';
+                }else {
+                    $this->errores['global'] = "Error al realizar la reserva.";
+                }  
             } else {
                 $this->errores['global'] = "Error al realizar la reserva.";
             }

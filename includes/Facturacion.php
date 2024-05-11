@@ -2,12 +2,10 @@
 namespace es\ucm\fdi\aw;
 class Facturacion {
 
-    private $id;
     private $id_alquiler;
     private $monto;
     private $fecha;
-    public function __construct($id_alquiler, $monto, $id = null) {
-        $this->id = $id;
+    public function __construct($id_alquiler, $monto) {
         $this->id_alquiler = $id_alquiler;
         $this->monto = $monto;       
     }
@@ -28,14 +26,13 @@ class Facturacion {
         $query = sprintf("INSERT INTO FACTURACION (id_alquiler,
                                                 monto, 
                                                 fecha) 
-            VALUES ('%s', '%s', '%s')",
+            VALUES ('%d', '%d', '%s')",
             $conn->real_escape_string($facturacion->getId_alquiler()),
             $conn->real_escape_string($facturacion->getMonto()),
             date('Y-m-d'),
         );
 
         if ($conn->query($query)) {
-            $facturacion->setId($conn->insert_id);
             return $facturacion;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -86,13 +83,6 @@ class Facturacion {
             return false;
         }
         return $result;
-    }
-
-    public function getId(){
-        return $this->id;
-    }
-    public function setId($id){
-        $this->id = $id;
     }
 
     public function getId_alquiler(){

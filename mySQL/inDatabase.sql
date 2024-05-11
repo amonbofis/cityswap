@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS Viaje (
     ciudad_destino VARCHAR(100),
     fecha_inicio DATE NOT NULL,
     fecha_final DATE NOT NULL,
+    precio INT,
+    free INT,
     FOREIGN KEY (id_empresa) REFERENCES Empresa(id_empresa)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,8 +42,7 @@ create TABLE IF NOT EXISTS Alquiler (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 create table if not exists Facturacion (
-    id_factura INT AUTO_INCREMENT PRIMARY KEY,
-    id_alquiler INT,
+    id_alquiler INT PRIMARY KEY,
     monto INT,
     fecha DATE NOT NULL,
     FOREIGN KEY (id_alquiler) REFERENCES Alquiler(id_alquiler)

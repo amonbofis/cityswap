@@ -8,6 +8,7 @@ class Viaje {
     private $ciudad_destino;
     private $fecha_inicio;
     private $fecha_final;
+    private $free;
     public function __construct($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $id = null) {
         $this->id = $id;
         $this->id_empresa = $id_empresa;
@@ -15,6 +16,7 @@ class Viaje {
         $this->ciudad_destino = $ciudad_destino;
         $this->fecha_inicio = $fecha_inicio;
         $this->fecha_final = $fecha_final;
+        $this->free = true;
     }
     public static function creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final) {
         $viaje = new Viaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final);
@@ -36,13 +38,13 @@ class Viaje {
                                                 ciudad_destino, 
                                                 fecha_inicio,
                                                 fecha_final) 
-            VALUES ('%s', '%s', '%s', '%s', '%s')",
+            VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
             $conn->real_escape_string($viaje->getId_empresa()),
             $conn->real_escape_string($viaje->getCiudad_origen()),
             $conn->real_escape_string($viaje->getCiudad_destino()),
             $conn->real_escape_string($viaje->getFecha_inicio()),
-            $conn->real_escape_string($viaje->getFecha_final())
-
+            $conn->real_escape_string($viaje->getFecha_final()),
+            1
         );
         if ($conn->query($query)) {
             $viaje->setId($conn->insert_id);
@@ -72,7 +74,7 @@ class Viaje {
 
     static public function obtenerViajes() {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Viaje");
+        $query = sprintf("SELECT * FROM Viaje where free = 1");
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -177,6 +179,18 @@ class Viaje {
 
     public function getFecha_final(){
         return $this->fecha_final;
+    }
+
+    public function getFree(){
+        return $this->free;
+    }
+
+    public function setFree($bool){
+        $this->free = $bool;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $boolValue = $bool ? 1 : 0; // Convert boolean value to integer (1 for true, 0 for false)
+        $query = sprintf("UPDATE Viaje SET free = %d WHERE id_viaje = %d", $boolValue, $this->id);
+        $rs = $conn->query($query);
     }
     
 }

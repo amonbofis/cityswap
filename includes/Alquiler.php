@@ -3,6 +3,7 @@ namespace es\ucm\fdi\aw;
 
 class Alquiler {
 
+    private $id_alquiler;
     private $id_usuario;
     private $id_viaje;
 
@@ -10,6 +11,7 @@ class Alquiler {
      * Constructor de la clase Alquiler
      */
     public function __construct($id_usuario, $id_viaje) {
+        $this->id_alquiler = null;
         $this->id_usuario = $id_usuario;
         $this->id_viaje = $id_viaje;
     }
@@ -35,11 +37,12 @@ class Alquiler {
         );
 
         if ($conn->query($query)) {
+            $alquiler->setId_alquiler($conn->insert_id);
             $result = true;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-        return $result;
+        return $alquiler;
     }
 
     static public function misAlquileres($id_usuario) {
@@ -71,6 +74,13 @@ class Alquiler {
         return $result;
     }
 
+    public function setId_alquiler($id){
+        $this->id_alquiler = $id;
+    }
+
+    public function getId_alquiler(){
+        return $this->id_alquiler;
+    }
     /**
      * Devuelve el id del usuario
      */
