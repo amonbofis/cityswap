@@ -10,9 +10,9 @@ function toBox($id_viaje, $id_empresa, $ciudad_origen, $ciudad_destino, $fecha_i
     $empresa = $emp['nombre_empresa'];
     //print("before the link, id viaje egale a : "+ $id_empresa);
     $contenido = "<div class='box-viaje'>";
-    $contenido .= "<h2 class='trayecto'>$ciudad_origen => $ciudad_destino</h2>";
-    $contenido .= "<div class='fecha'>From : $fecha_inicio <br> to : $fecha_final</div>";
-    $contenido .= "<p class='empresa'>$empresa</p>";
+    $contenido .= "<h2 class='trayecto'>De $ciudad_origen <br> a $ciudad_destino</h2>";
+    $contenido .= "<div class='fecha'>From : $fecha_inicio <br> To : $fecha_final</div>";
+    $contenido .= "<p class='empresa'>Empresa: $empresa</p>";
     $contenido .= "<a href='reserva.php?id_viaje=$id_viaje' class='button-viaje'>Reservar</a>";
     $contenido .= "</div>";
     return $contenido;

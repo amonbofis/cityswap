@@ -12,12 +12,11 @@
     if ($nombreUsuario && isset($_SESSION['empresa'])): ?>
         <!-- Si el usuario está iniciado sesión, mostrar el topbar para usuarios logueados -->
         <div class="topbar-logged-in">
-            <h1>Logo</h1>
+            <h1>City Swap</h1>
             <nav>
                 <ul>
                     <li><a href="index.php">Inicio</a></li>
                     <li><a href="anadirViaje.php">Anadir Viaje</a></li>
-                    <li><a href="reservados.php">Mis viajes</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
@@ -29,7 +28,7 @@
     <?php elseif ($nombreUsuario && ! isset($_SESSION['empresa'])): ?>
         <!-- Si el usuario no está iniciado sesión, mostrar el topbar para usuarios no logueados -->
         <div class="topbar-logged-in">
-            <h1>Logo</h1>
+            <h1>City Swap</h1>
             <nav>
                 <ul>
                     <li><a href="index.php">Inicio</a></li>

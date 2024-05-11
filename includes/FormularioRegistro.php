@@ -10,9 +10,11 @@ class FormularioRegistro extends Formulario {
     protected function generaCamposFormulario(&$datos) {
         // Se reutiliza el nombre de usuario introducido previamente o se deja en blanco
         $nombre_usuario = $datos['nombre_usuario'] ?? '';
+        $apellido = $datos['apellido'] ?? '';
+        $email = $datos['email'] ?? '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre_usuario', 'contrasena', 'email'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre_usuario', 'apellido', 'contrasena', 'email'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
@@ -22,6 +24,11 @@ class FormularioRegistro extends Formulario {
                 <label for="username">Username:</label>
                 <input type="text" id="nombre_usuario" name="nombre_usuario" required value="$nombre_usuario">
                 {$erroresCampos['nombre_usuario']}
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input id="apellido" type="text" name="apellido" required value="$apellido">
+                {$erroresCampos['apellido']}
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
@@ -49,6 +56,12 @@ class FormularioRegistro extends Formulario {
             $this->errores['nombre_usuario'] = 'El nombre de usuario no puede estar vacío';
         }
 
+        $apellido = trim($datos['apellido'] ?? '');
+        $apellido = filter_var($apellido, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ( ! $apellido || empty($apellido) || mb_strlen($apellido) < 3) {
+            $this->errores['apellido'] = 'El apellido de usuario tiene que tener una longitud de al menos 3 caracteres.';
+        }
+
         $contrasena = trim($datos['contrasena'] ?? '');
         $contrasena = filter_var($contrasena, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $contrasena || empty($contrasena) ) {
@@ -62,10 +75,11 @@ class FormularioRegistro extends Formulario {
         }
 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::creaUsuario($nombre_usuario, '', $email, $contrasena);
+            $usuario = Usuario::creaUsuario($nombre_usuario, $apellido, $email, $contrasena);
             if ($usuario) {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombre_usuario;
+                $_SESSION['apellido'] = $apellido;
                 $_SESSION['email'] = $email;
                 header('Location: index.php');
                 exit;
