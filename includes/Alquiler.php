@@ -62,7 +62,8 @@ class Alquiler {
                     $row['ciudad_origen'],
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
-                    $row['fecha_final']);
+                    $row['fecha_final'],
+                    $row['free']);
                 $viaje->setId($row['id_viaje']);
                 $result[] = $viaje;
             }

@@ -87,7 +87,7 @@ class FormularioNewViaje extends Formulario {
 
         // Si no hay errores, añade el viaje a la base de datos
         if (empty($this->errores)) {
-            $viaje = Viaje::creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final);
+            $viaje = Viaje::creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, 1);
             if (!$viaje) {
                 $this->errores[] = 'Error al añadir el viaje.';
             }

@@ -9,17 +9,17 @@ class Viaje {
     private $fecha_inicio;
     private $fecha_final;
     private $free;
-    public function __construct($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $id = null) {
+    public function __construct($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $free, $id = null) {
         $this->id = $id;
         $this->id_empresa = $id_empresa;
         $this->ciudad_origen = $ciudad_origen;
         $this->ciudad_destino = $ciudad_destino;
         $this->fecha_inicio = $fecha_inicio;
         $this->fecha_final = $fecha_final;
-        $this->free = true;
+        $this->free = $free;
     }
-    public static function creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final) {
-        $viaje = new Viaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final);
+    public static function creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $free) {
+        $viaje = new Viaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $free);
         return $viaje->guarda();
     }
 
@@ -37,7 +37,8 @@ class Viaje {
                                                 ciudad_origen, 
                                                 ciudad_destino, 
                                                 fecha_inicio,
-                                                fecha_final) 
+                                                fecha_final,
+                                                free) 
             VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
             $conn->real_escape_string($viaje->getId_empresa()),
             $conn->real_escape_string($viaje->getCiudad_origen()),
@@ -85,7 +86,8 @@ class Viaje {
                     $row['ciudad_origen'],
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
-                    $row['fecha_final']);
+                    $row['fecha_final'],
+                    $row['free']);
                 $viaje->setId($row['id_viaje']);
                 $result[] = $viaje;
             }
@@ -110,7 +112,8 @@ class Viaje {
                     $row['ciudad_origen'],
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
-                    $row['fecha_final']);
+                    $row['fecha_final'],
+                    $row['free']);
                 $viaje->setId($row['id_viaje']);
                 $result = $viaje;
             }
@@ -135,7 +138,8 @@ class Viaje {
                     $row['ciudad_origen'],
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
-                    $row['fecha_final']);
+                    $row['fecha_final'],
+                    $row['free']);
                 $result[] = $viaje;
             }
             $rs->free();
