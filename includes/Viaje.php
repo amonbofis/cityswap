@@ -9,17 +9,19 @@ class Viaje {
     private $fecha_inicio;
     private $fecha_final;
     private $free;
-    public function __construct($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $free, $id = null) {
+    private $precio;
+    public function __construct($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $precio, $free, $id = null) {
         $this->id = $id;
         $this->id_empresa = $id_empresa;
         $this->ciudad_origen = $ciudad_origen;
         $this->ciudad_destino = $ciudad_destino;
         $this->fecha_inicio = $fecha_inicio;
         $this->fecha_final = $fecha_final;
+        $this->precio = $precio;
         $this->free = $free;
     }
-    public static function creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $free) {
-        $viaje = new Viaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $free);
+    public static function creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $precio, $free) {
+        $viaje = new Viaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $precio, $free);
         return $viaje->guarda();
     }
 
@@ -31,20 +33,21 @@ class Viaje {
     }
 
     public static function insertaViaje($viaje) {
-        print("inserta called");
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO Viaje (id_empresa,
                                                 ciudad_origen, 
                                                 ciudad_destino, 
                                                 fecha_inicio,
                                                 fecha_final,
+                                                precio,
                                                 free) 
-            VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
+            VALUES ('%s', '%s', '%s', '%s', '%s', '%d', '%d')",
             $conn->real_escape_string($viaje->getId_empresa()),
             $conn->real_escape_string($viaje->getCiudad_origen()),
             $conn->real_escape_string($viaje->getCiudad_destino()),
             $conn->real_escape_string($viaje->getFecha_inicio()),
             $conn->real_escape_string($viaje->getFecha_final()),
+            $viaje->getPrecio(),
             1
         );
         if ($conn->query($query)) {
@@ -87,6 +90,7 @@ class Viaje {
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
                     $row['fecha_final'],
+                    $row['precio'],
                     $row['free']);
                 $viaje->setId($row['id_viaje']);
                 $result[] = $viaje;
@@ -113,6 +117,7 @@ class Viaje {
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
                     $row['fecha_final'],
+                    $row['precio'],
                     $row['free']);
                 $viaje->setId($row['id_viaje']);
                 $result = $viaje;
@@ -139,6 +144,7 @@ class Viaje {
                     $row['ciudad_destino'],
                     $row['fecha_inicio'],
                     $row['fecha_final'],
+                    $row['precio'],
                     $row['free']);
                 $result[] = $viaje;
             }
@@ -185,6 +191,10 @@ class Viaje {
         return $this->fecha_final;
     }
 
+    public function getPrecio(){
+        return $this->precio;
+    }
+
     public function getFree(){
         return $this->free;
     }
@@ -196,5 +206,4 @@ class Viaje {
         $query = sprintf("UPDATE Viaje SET free = %d WHERE id_viaje = %d", $boolValue, $this->id);
         $rs = $conn->query($query);
     }
-    
 }

@@ -13,10 +13,11 @@ class FormularioNewViaje extends Formulario {
         $ciudad_destino = $datos['ciudad_destino'] ?? '';
         $fecha_inicio = $datos['fecha_inicio'] ?? '';
         $fecha_final = $datos['fecha_final'] ?? '';
+        $precio = $datos['precio'] ?? '';
 
         // Genera mensajes de error si existen
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['ciudad_origen', 'ciudad_destino', 'fecha_inicio', 'fecha_final'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['ciudad_origen', 'ciudad_destino', 'fecha_inicio', 'fecha_final', 'precio'], $this->errores, 'span', array('class' => 'error'));
 
         // Genera el HTML de los campos del formulario y los mensajes de error
         $html = <<<EOF
@@ -43,6 +44,11 @@ class FormularioNewViaje extends Formulario {
                 {$erroresCampos['fecha_final']}
             </div>
             <div class="form-group">
+                <label for="precio">Precio (en euro):</label>
+                <input type="number" id="precio" name="precio" required value="$precio">
+                {$erroresCampos['precio']}
+            </div>
+            <div class="form-group">
                 <button type="submit" class="btn">Añadir Viaje</button>
             </div>
         EOF;
@@ -58,11 +64,12 @@ class FormularioNewViaje extends Formulario {
         $fecha_inicio = $datos['fecha_inicio'] ?? '';
         $fecha_final = $datos['fecha_final'] ?? '';
         $currentDate = date('Y-m-d');
+        $precio = $datos['precio'] ?? '';
         // Suponiendo que el ID de la empresa está almacenado en la sesión
         $empresaActual = Empresa::buscaEmpresa($_SESSION['nombre']);
-        var_dump($empresaActual);
+        
         $id_empresa = $empresaActual->getId();
-        var_dump($id_empresa);
+        
 
         // Validar los datos
         if (empty($ciudad_origen)) {
@@ -85,9 +92,13 @@ class FormularioNewViaje extends Formulario {
             $this->errores['fecha_final'] = 'La fecha de fin debe ser posterior a la fecha de inicio.';
         }
 
+        if (empty($precio)) {
+            $this->errores['precio'] = 'El campo precio es obligatorio, supongo que no quieres trabajar sin estar pagado.';
+        }
+
         // Si no hay errores, añade el viaje a la base de datos
         if (empty($this->errores)) {
-            $viaje = Viaje::creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, 1);
+            $viaje = Viaje::creaViaje($id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $precio, 1);
             if (!$viaje) {
                 $this->errores[] = 'Error al añadir el viaje.';
             }

@@ -4,7 +4,7 @@ require_once __DIR__.'/includes/config.php';
 $tituloPagina = 'Viajes';
 $contenidoPrincipal = '';
 //función para generar la visualización de viajes
-function toBox($id_viaje, $id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final) {
+function toBox($id_viaje, $id_empresa, $ciudad_origen, $ciudad_destino, $fecha_inicio, $fecha_final, $precio) {
     $empr = es\ucm\fdi\aw\Empresa::getEmpresa($id_empresa);
     $emp = $empr->fetch_assoc();
     $empresa = $emp['nombre_empresa'];
@@ -12,6 +12,7 @@ function toBox($id_viaje, $id_empresa, $ciudad_origen, $ciudad_destino, $fecha_i
     $contenido = "<div class='box-viaje'>";
     $contenido .= "<h2 class='trayecto'>De $ciudad_origen <br> a $ciudad_destino</h2>";
     $contenido .= "<div class='fecha'>From : $fecha_inicio <br> To : $fecha_final</div>";
+    $contenido .= "<p class='precio'>Precio: $precio</p>";
     $contenido .= "<p class='empresa'>Empresa: $empresa</p>";
     $contenido .= "<a href='reserva.php?id_viaje=$id_viaje' class='button-viaje'>Reservar</a>";
     $contenido .= "</div>";
@@ -29,7 +30,8 @@ if ($viajes) {
                                     $viaje->getCiudad_origen(), 
                                     $viaje->getCiudad_destino(),
                                     $viaje->getFecha_inicio(),
-                                    $viaje->getFecha_final());
+                                    $viaje->getFecha_final(),
+                                    $viaje->getPrecio());
     }
 } else {
     $contenidoPrincipal .= '<p>No hay viajes disponibles en este momento.</p>';

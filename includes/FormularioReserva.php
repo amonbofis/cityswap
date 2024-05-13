@@ -63,13 +63,10 @@ class FormularioReserva extends Formulario {
             $reserva = Alquiler::crea($usuario->getId(), $viaje->getId());
             
             if ($reserva) {
+                
                 $viaje->setFree(false);
-                $fact = Facturacion::creaFacturacion($reserva->getId_alquiler(), 100);
-                if($fact){
-                    return 'index.php';
-                }else {
-                    $this->errores['global'] = "Error al realizar la reserva.";
-                }  
+                return 'index.php';
+
             } else {
                 $this->errores['global'] = "Error al realizar la reserva.";
             }

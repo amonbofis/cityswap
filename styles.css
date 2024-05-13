@@ -181,3 +181,8 @@ footer {
     background-color: white;
     color: #123949;
 }
+
+.precio {
+    font-size: 1rem;
+    text-align: center;
+}

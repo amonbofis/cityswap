@@ -41,12 +41,6 @@ create TABLE IF NOT EXISTS Alquiler (
     FOREIGN KEY (id_viaje) REFERENCES Viaje(id_viaje)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-create table if not exists Facturacion (
-    id_alquiler INT PRIMARY KEY,
-    monto INT,
-    fecha DATE NOT NULL,
-    FOREIGN KEY (id_alquiler) REFERENCES Alquiler(id_alquiler)
-)ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 INSERT INTO Usuario (nombre_usuario, apellido, email, contrasena) 
@@ -75,9 +69,3 @@ VALUES
 (1, 1),
 (2, 2),
 (3, 3);
-
-INSERT INTO Facturacion (id_alquiler, monto, fecha) 
-VALUES 
-(1, 150, '2024-05-01'),
-(2, 200, '2024-05-03'),
-(3, 180, '2024-05-07');

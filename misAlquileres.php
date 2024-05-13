@@ -24,8 +24,6 @@ $viajes = es\ucm\fdi\aw\Alquiler::misAlquileres($usuarioActual->getId());
 
 if ($viajes) {
     foreach($viajes as $viaje) {
-        $id_alq = $viaje->getId();
-        //$facturacione = es\ucm\fdi\aw\Facturacion::factPorAlq($id_alq);
         $contenidoPrincipal .= toBox($viaje->getId_empresa(), 
                                     $viaje->getCiudad_origen(), 
                                     $viaje->getCiudad_destino(),
