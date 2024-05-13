@@ -51,10 +51,10 @@ create table if not exists Facturacion (
 
 INSERT INTO Usuario (nombre_usuario, apellido, email, contrasena) 
 VALUES 
-('azul', 'noguera', 'azul@learnique.edu','$2y$10$Mtto4mZ.kRwCfMvPpDYDBOzco7ekMLJiKO35GZRFvBf6SuPRLbtAe'),
-('rocio', 'gonzalez', 'rocio@learnique.edu','$2y$10$ZvpimRSX9aMCkdXg/bNzmuQCQpNdPdrgfcIV.HHaLWnmDiVXKuVTO'),
-('patricio', 'guledjian', 'patricio@learnique.edu','$2y$10$Hu2/dTjTJZO4jpO1fe1LjOXXgYG0Wq.XeqEBESGJ1VVwK4u5aEURy'),
-('gabriel', 'zamy', 'gabriel@learnique.edu','$2y$10$6I7tVnuOZr50QAzFhMJAvez6YXt9PLVJRDWNdCcOPghPLSziPi71q');
+('azul', 'noguera', 'azul@cityswap.edu','$2y$10$Mtto4mZ.kRwCfMvPpDYDBOzco7ekMLJiKO35GZRFvBf6SuPRLbtAe'),
+('rocio', 'gonzalez', 'rocio@cityswap.edu','$2y$10$ZvpimRSX9aMCkdXg/bNzmuQCQpNdPdrgfcIV.HHaLWnmDiVXKuVTO'),
+('patricio', 'guledjian', 'patricio@cityswap.edu','$2y$10$Hu2/dTjTJZO4jpO1fe1LjOXXgYG0Wq.XeqEBESGJ1VVwK4u5aEURy'),
+('gabriel', 'zamy', 'gabriel@cityswap.edu','$2y$10$6I7tVnuOZr50QAzFhMJAvez6YXt9PLVJRDWNdCcOPghPLSziPi71q');
 
 INSERT INTO Empresa (nombre_empresa, email, contrasena)
 VALUES 
@@ -66,9 +66,9 @@ VALUES
 
 INSERT INTO Viaje (id_empresa, ciudad_origen, ciudad_destino, fecha_inicio, fecha_final) 
 VALUES 
-(1, 'Ciudad A', 'Ciudad B', '2024-05-01', '2024-05-05'),
-(2, 'Ciudad C', 'Ciudad D', '2024-05-03', '2024-05-08'),
-(1, 'Ciudad E', 'Ciudad F', '2024-05-07', '2024-05-10');
+(1, 'Madrid', 'Barcelona', '2024-05-20', '2024-05-24'),
+(2, 'Roma', 'Milan', '2024-05-17', '2024-05-21'),
+(1, 'Berlin', 'Munich', '2024-05-25', '2024-05-30');
 
 INSERT INTO Alquiler (id_usuario, id_viaje)
 VALUES 
