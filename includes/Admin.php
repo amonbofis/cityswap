@@ -58,8 +58,6 @@ class Admin {
         }
     }
 
-    // Otros métodos de la clase Usuario...
-
     // Getters y Setters
     private $id;
     private $nombre_usuario;

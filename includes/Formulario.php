@@ -121,23 +121,6 @@ abstract class Formulario
         }
     }
 
-    /**
-     * Se encarga de orquestar todo el proceso de gestión de un formulario.
-     * 
-     * El proceso es el siguiente:
-     * <ul>
-     *   <li>O bien se quiere mostrar el formulario </li>
-     *   <li>O bien hay que procesar el formulario con dos resultados:
-     *     <ul>
-     *       <li>El formulario se ha procesado correctamente y se devuelve un <code>string</code> en {@see Form::procesaFormulario()}
-     *           que será la URL a la que se redirigirá al usuario. Se redirige al usuario y se termina la ejecución del script.</li>
-     *       <li>El formulario NO se ha procesado correctamente (errores en los datos, datos incorrectos, etc.) y se devuelve
-     *           un <code>array</code> con entradas (campo, mensaje) con errores específicos para un campo o (entero, mensaje) si el mensaje
-     *           es un mensaje que afecta globalmente al formulario. Se vuelve a generar el formulario pasándole el array de errores.</li> 
-     *     </ul>
-     *   </li>
-     * </ul>
-     */
     public function gestiona()
     {
         $datos = &$_POST;

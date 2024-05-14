@@ -1,11 +1,9 @@
-/* Reset CSS */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Basic Styling */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -81,7 +79,6 @@ footer {
     width: 100%;
 }
 
-/* Additional Styles for Login Page */
 .login-container {
     max-width: 400px;
     margin: 100px auto;
