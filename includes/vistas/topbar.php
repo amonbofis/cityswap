@@ -17,7 +17,7 @@
                 <ul>
                     <li><a href="index.php">Inicio</a></li>
                     <li><a href="anadirViaje.php">Anadir Viaje</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="logout.php">Cerrar sesion</a></li>
                 </ul>
             </nav>
             <!-- Saludo personalizado -->
@@ -34,19 +34,19 @@
                     <li><a href="index.php">Inicio</a></li>
                     <li><a href="viajes.php">Reservar Viaje</a></li>
                     <li><a href="misAlquileres.php">Mis Alquileres</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="logout.php">Cerrar sesion</a></li>
                 </ul>
             </nav>
         </div>
     <?php else: ?>
         <!-- Si el usuario no está iniciado sesión, mostrar el topbar para usuarios no logueados -->
         <div class="topbar-logged-out">
-            <h1>Welcome to CitySwap Car Rental Service</h1>
+            <h1>Bienvenido a CitySwap!</h1>
             <nav>
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="registro.php">Register</a></li>
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="login.php">Iniciar sesion</a></li>
+                    <li><a href="registro.php">Registrarse</a></li>
                 </ul>
             </nav>
         </div>
